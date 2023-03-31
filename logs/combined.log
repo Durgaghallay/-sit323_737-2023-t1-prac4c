@@ -1,0 +1,17 @@
+{"level":"info","message":"New divide operation requested: 4/4","service":"calculator-microservice"}
+{"level":"info","message":"New divide operation requested: 4/a","service":"calculator-microservice"}
+{"level":"error","message":"Divide operation error. Error Message n2 incorrectly defined ","service":"calculator-microservice"}
+{"level":"info","message":"New add operation requested: 4+3","service":"calculator-microservice","timestamp":"3/30/2023, 9:46:40 PM"}
+{"level":"info","message":"New add operation requested: 2+6","service":"calculator-microservice","timestamp":"3/30/2023, 10:53:03 PM"}
+{"level":"info","message":"New add operation requested: 2+90","service":"calculator-microservice","timestamp":"3/30/2023, 10:53:10 PM"}
+{"level":"info","message":"New add operation requested: undefined+90","service":"calculator-microservice","timestamp":"3/30/2023, 10:53:44 PM"}
+{"level":"error","message":"Add operation error. Error Message n1 incorrectly defined ","service":"calculator-microservice","timestamp":"3/30/2023, 10:53:44 PM"}
+{"level":"info","message":"New divide operation requested: undefined/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:04 PM"}
+{"level":"error","message":"Divide operation error. Error Message n1 incorrectly defined ","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:04 PM"}
+{"level":"info","message":"New divide operation requested: 2/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:12 PM"}
+{"level":"info","message":"New divide operation requested: 180/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:18 PM"}
+{"level":"info","message":"New divide operation requested: 180/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:23 PM"}
+{"level":"info","message":"New divide operation requested: 180/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:25 PM"}
+{"level":"info","message":"New divide operation requested: 180/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:55:29 PM"}
+{"level":"info","message":"New divide operation requested: 180/90","service":"calculator-microservice","timestamp":"3/30/2023, 10:59:21 PM"}
+{"level":"info","message":"New add operation requested: 180+90","service":"calculator-microservice","timestamp":"3/30/2023, 11:13:23 PM"}
