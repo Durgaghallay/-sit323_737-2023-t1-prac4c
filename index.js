@@ -1,51 +1,12 @@
 const express = require("express");
-const res = require("express/lib/response");
-const winston = require("winston");
-var passport = require("passport");
-// Strategies
-var JwtStrategy = require("passport-jwt").Strategy;
-var ExtractJwt = require("passport-jwt").ExtractJwt;
-// Used to create, sign, and verify tokens
-var jwt = require("jsonwebtoken");
-const app = express();
-var opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = "somesecretkey";
-const payload = {
-  //Added timestamp to randomize the token at each server start
-  timestamp: new Date().toLocaleString(),
-};
-const generateToken = function () {
-  // Generate JSON Web Token
-  return jwt.sign(
-    {
-      payload,
-    },
-    opts.secretOrKey,
-    { expiresIn: 3600 }
-  );
-};
 
-// JWT Strategy
-const jwtPassport = passport.use(
-  new JwtStrategy(
-    opts,
-    // The done is the callback provided by passport
-    (jwt_payload, done) => {
-      console.log(jwt_payload);
-      if (
-        jwt_payload.payload &&
-        jwt_payload.payload.timestamp === payload.timestamp
-      ) {
-        return done(null, true);
-      } else {
-        return done(null, false);
-      }
-    }
-  )
-);
-// Verify an incoming user with jwt strategy we just configured above
-const verifyToken = passport.authenticate("jwt", { session: false });
+const { generateToken, verifyToken } = require("./authentication");
+const { logger } = require("./logger");
+const bodyParser = require("body-parser");
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const add = (n1, n2) => {
   return n1 + n2;
 };
@@ -58,33 +19,31 @@ const multiply = (n1, n2) => {
 const divide = (n1, n2) => {
   return n1 / n2;
 };
-const logger = winston.createLogger({
-  level: "info",
 
-  format: winston.format.json(),
-
-  defaultMeta: { service: "calculator-microservice" },
-
-  transports: [
-    new winston.transports.Console({
-      format: winston.format.simple(),
-    }),
-
-    new winston.transports.File({ filename: "logs/error.log", level: "error" }),
-
-    new winston.transports.File({ filename: "logs/combined.log" }),
-  ],
-});
 // Generate Token
 app.post("/generateToken", (req, res) => {
-  // Create a token
-  var token = generateToken();
-  // Response
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "application/json");
-  res.json({
-    token: token,
-  });
+  try {
+    console.log("adsf", req.body);
+    const { email, password } = req.body;
+
+    // Create a token
+    var token = generateToken(email, password);
+    console.log("token", token);
+    // Response
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.json({
+      token: token,
+    });
+  } catch (error) {
+    logger.log({
+      level: "error",
+      message: `Authentication Failure `,
+      timestamp: new Date().toLocaleString(),
+    });
+    console.log(error);
+    res.status(500).json({ statuscocde: 500, msg: error.message });
+  }
 });
 app.get("/add", verifyToken, (req, res) => {
   logger.log({
