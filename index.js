@@ -45,6 +45,8 @@ app.post("/generateToken", (req, res) => {
     res.status(500).json({ statuscocde: 500, msg: error.message });
   }
 });
+
+
 app.get("/add", verifyToken, (req, res) => {
   logger.log({
     level: "info",
@@ -107,6 +109,8 @@ app.get("/subtract", verifyToken, (req, res) => {
     res.status(500).json({ statuscocde: 500, msg: error.message });
   }
 });
+
+
 app.get("/multiply", verifyToken, (req, res) => {
   logger.log({
     level: "info",
@@ -138,6 +142,8 @@ app.get("/multiply", verifyToken, (req, res) => {
     res.status(500).json({ statuscocde: 500, msg: error.message });
   }
 });
+
+
 app.get("/divide", verifyToken, (req, res) => {
   logger.log({
     level: "info",
@@ -169,7 +175,9 @@ app.get("/divide", verifyToken, (req, res) => {
     res.status(500).json({ statuscocde: 500, msg: error.message });
   }
 });
+
 const port = 3040;
+
 app.listen(port, () => {
   console.log("hello i'm listening to port " + port);
 });
